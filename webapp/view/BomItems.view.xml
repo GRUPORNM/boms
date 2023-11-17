@@ -1,0 +1,58 @@
+<mvc:View controllerName="bomoverview.controller.BomItems"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:ux="sap.uxap"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Page id="requestDetailPage" showHeader="true" floatingFooter="true" title="{stlnr} - {maktx}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <Panel id="_IDGenPanel1">
+                <form:SimpleForm editable="false" layout="ColumnLayout" columnsM="2" columnsL="3" title="{i18n>generalInfo}" columnsXL="4">
+                    <form:content>
+                        <Label text="{i18n>bom_no}"/>
+                        <Text id="stlnr" text="{stlnr}" />
+                        <Label text="{i18n>finalProduct}"/>
+                        <Text id="maktx" text="{maktx}" />
+                        <Label text="{i18n>basequantity}"/>
+                        <Text id="bmeng" text="{bmeng}" />
+                        <Label text="{i18n>baseUoM}"/>
+                        <Text id="bmein" text="{bmein}" />
+                    </form:content>
+                </form:SimpleForm>
+                <form:SimpleForm maxContainerCols="1" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" editable="false" title="{i18n>items}" columnsM="2" columnsL="3" columnsXL="4">
+                    <form:content>
+                        <Table id="BomItemsTable" width="100%" class="sapFDynamicPageAlignContent" items="{to_bomItems}" busyIndicatorDelay="{appView>/delay}">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>bom_no}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>bom_item}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>material}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>quantity}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier text="{stlnr}" />
+                                        <ObjectIdentifier text="{posnr}" />
+                                        <ObjectIdentifier text="{maktx}" />
+                                        <ObjectIdentifier text="{parts: [{path: 'menge'},{path: 'meins'}], type: 'sap.ui.model.type.Unit',formatOptions: { showMeasure: true  } }" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </form:content>
+                </form:SimpleForm>
+            </Panel>
+        </content>
+    </Page>
+
+</mvc:View>

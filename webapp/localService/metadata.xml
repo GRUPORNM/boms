@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="./sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="TQA.BOM_OVERVIEW_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="xTQAxBOM_HEADER_DDType" sap:label="Data Definition for BOM Header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="stlnr"/>
+                </Key>
+                <Property Name="stlnr" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:label="BOM No." sap:quickinfo="Bill of Material"/>
+                <Property Name="matnr" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Material No." sap:quickinfo="Material Number"/>
+                <Property Name="maktx" Type="Edm.String" MaxLength="40" sap:label="Material" sap:quickinfo="Material Description"/>
+                <Property Name="bmeng" Type="Edm.Decimal" Precision="13" Scale="3" sap:label="Base Quantity" sap:quickinfo="Base quantity"/>
+                <Property Name="bmein" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure for BOM" sap:semantics="unit-of-measure"/>
+                <NavigationProperty Name="to_bomItems" Relationship="TQA.BOM_OVERVIEW_SRV.assoc_87BDDD9CF7E6668575285FCE34BBE7FA" FromRole="FromRole_assoc_87BDDD9CF7E6668575285FCE34BBE7FA" ToRole="ToRole_assoc_87BDDD9CF7E6668575285FCE34BBE7FA"/>
+            </EntityType>
+            <EntityType Name="xTQAxBOM_ITEMS_DDType" sap:label="Data Definition for BOM Items" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="stlnr"/>
+                    <PropertyRef Name="stlkn"/>
+                </Key>
+                <Property Name="stlnr" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:label="BOM No." sap:quickinfo="Bill of Material"/>
+                <Property Name="stlkn" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="NonNegative" sap:label="BOM Item" sap:quickinfo="BOM item node number"/>
+                <Property Name="posnr" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="BOM Item" sap:quickinfo="BOM Item Number"/>
+                <Property Name="idnrk" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Component" sap:quickinfo="BOM component"/>
+                <Property Name="maktx" Type="Edm.String" MaxLength="40" sap:label="Component Description" sap:quickinfo="Material Description"/>
+                <Property Name="menge" Type="Edm.Decimal" Precision="13" Scale="3" sap:label="Quantity" sap:quickinfo="Component Quantity"/>
+                <Property Name="meins" Type="Edm.String" MaxLength="3" sap:label="Component UoM" sap:quickinfo="Component Unit of Measure" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <Association Name="assoc_87BDDD9CF7E6668575285FCE34BBE7FA" sap:content-version="1">
+                <End Type="TQA.BOM_OVERVIEW_SRV.xTQAxBOM_HEADER_DDType" Multiplicity="1" Role="FromRole_assoc_87BDDD9CF7E6668575285FCE34BBE7FA"/>
+                <End Type="TQA.BOM_OVERVIEW_SRV.xTQAxBOM_ITEMS_DDType" Multiplicity="*" Role="ToRole_assoc_87BDDD9CF7E6668575285FCE34BBE7FA"/>
+            </Association>
+            <EntityContainer Name="TQA_BOM_OVERVIEW_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="xTQAxBOM_HEADER_DD" EntityType="TQA.BOM_OVERVIEW_SRV.xTQAxBOM_HEADER_DDType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="xTQAxBOM_ITEMS_DD" EntityType="TQA.BOM_OVERVIEW_SRV.xTQAxBOM_ITEMS_DDType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_87BDDD9CF7E6668575285FCE34BBE7FA" Association="TQA.BOM_OVERVIEW_SRV.assoc_87BDDD9CF7E6668575285FCE34BBE7FA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="xTQAxBOM_HEADER_DD" Role="FromRole_assoc_87BDDD9CF7E6668575285FCE34BBE7FA"/>
+                    <End EntitySet="xTQAxBOM_ITEMS_DD" Role="ToRole_assoc_87BDDD9CF7E6668575285FCE34BBE7FA"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="TQA.BOM_OVERVIEW_SRV.TQA_BOM_OVERVIEW_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <atom:link rel="self" href="http://erpdev.rnm.local:50000/sap/opu/odata/tqa/BOM_OVERVIEW_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://erpdev.rnm.local:50000/sap/opu/odata/tqa/BOM_OVERVIEW_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

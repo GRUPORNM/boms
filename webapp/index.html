@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BOM Overview</title>
+    <style>
+        html,
+        body,
+        body>div,
+        #container,
+        #container-uiarea {
+            height: 100%;
+        }
+    </style>
+    <script id="sap-ui-bootstrap"
+        src="http://erpdev.rnm.local:50000/sap/bc/ui5_ui5/tqa/launchpad/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_fiori_3" data-sap-ui-resourceroots='{
+            "bomoverview": "./"
+        }' data-sap-ui-oninit="module:sap/ui/core/ComponentSupport" data-sap-ui-compatVersion="edge"
+        data-sap-ui-async="true" data-sap-ui-frameOptions="trusted" data-sap-ui-appCacheBuster="./"></script>
+    <script>
+        // Carregar o tema do sessionStorage ou usar o tema padrão
+        var selectedTheme = sessionStorage.getItem("selectedTheme") || "sap_fiori_3";
+
+        // Definir o tema
+        sap.ui.getCore().applyTheme(selectedTheme);
+    </script>
+</head>
+
+<body class="sapUiBody sapUiSizeCompact" id="content">
+    <div data-sap-ui-component data-name="bomoverview" data-id="container" data-settings='{"id" : "bomoverview"}'
+        data-handle-validation="true"></div>
+</body>
+
+</html>
