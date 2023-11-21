@@ -15,7 +15,7 @@ sap.ui.define([
                     oSmartTableView: "",
                     variantInput: "Standard"
                 });
-                sessionStorage.setItem("goToLaunchpad", "X");
+
                 this.setModel(oViewModel, "Main");
 
                 var fnSetAppNotBusy = function () {
@@ -48,6 +48,7 @@ sap.ui.define([
             },
 
             onPressBOM: function (oEvent) {
+                sessionStorage.setItem("goToLaunchpad", "");
                 var oSource = oEvent.getSource(),
                     sPath = oSource.getBindingContext().getPath();
 
