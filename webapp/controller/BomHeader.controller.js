@@ -9,13 +9,13 @@ sap.ui.define([
         return BaseController.extend("bomoverview.controller.BomHeader", {
             onInit: function () {
                 var oViewModel = new JSONModel({
-                    busy: false,
+                    busy: true,
                     delay: 0,
                     oStandard: "stlnr,bmeng,maktx",
                     oSmartTableView: "",
                     variantInput: "Standard"
                 });
-
+                sessionStorage.setItem("goToLaunchpad", "X");
                 this.setModel(oViewModel, "Main");
 
                 var fnSetAppNotBusy = function () {
@@ -55,14 +55,16 @@ sap.ui.define([
             },
 
             onAfterRendering: function () {
-                //DEPLOY
+                var variantInput = this.byId("variantInput");
+
                 if (sessionStorage.getItem("selectedTheme").indexOf("dark") !== -1) {
-                    this.byId("variantInput").removeStyleClass("variantMode");
-                    this.byId("variantInput").addStyleClass("variantModeBlack");
-                }
-                else {
-                    this.byId("variantInput").removeStyleClass("variantModeBlack");
-                    this.byId("variantInput").addStyleClass("variantMode");
+                    variantInput.removeStyleClass("variantMode");
+                    variantInput.addStyleClass("variantModeBlack");
+                    jQuery(".sapUiBlockLayer, .sapUiLocalBusyIndicator").css("background-color", "rgba(28,34,40,0.99)");
+                } else {
+                    variantInput.removeStyleClass("variantModeBlack");
+                    variantInput.addStyleClass("variantMode");
+                    jQuery(".sapUiBlockLayer, .sapUiLocalBusyIndicator").css("background-color", "rgba(255, 255, 255, 0.99)");
                 }
             },
 
