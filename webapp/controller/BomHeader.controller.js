@@ -22,7 +22,7 @@ sap.ui.define([
                     oViewModel.setProperty("/busy", false);
                     oViewModel.setProperty("/delay", 0);
                 };
-
+                sessionStorage.setItem("goToLaunchpad", "X");
                 // this.getOwnerComponent().getModel().metadataLoaded().then(fnSetAppNotBusy.bind(this));
                 // this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
                 this.getRouter().attachRouteMatched(this.getUserAuthentication, this);
@@ -56,6 +56,7 @@ sap.ui.define([
             },
 
             onAfterRendering: function () {
+                sessionStorage.setItem("goToLaunchpad", "X");
                 var variantInput = this.byId("variantInput");
 
                 if (sessionStorage.getItem("selectedTheme").indexOf("dark") !== -1) {
