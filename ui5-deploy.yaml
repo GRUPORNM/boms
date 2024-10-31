@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
 
-specVersion: "2.6"
+specVersion: "3.1"
 metadata:
   name: bomoverview
 type: application
@@ -14,12 +14,12 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         target:
-          url: http://erpdev.rnm.local:50000/
-          client: "610"
+          url: http://erpdd2.rnm.local:50000
+          client: "300"
         app:
           name: /TQA/BOM_OVERVIEW
           description: ""
           package: /TQA/LVP
-          transport: DEVK924974
+          transport: DD2K901824
         exclude:
           - /test/

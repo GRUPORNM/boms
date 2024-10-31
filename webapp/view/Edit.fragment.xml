@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:grid="sap.ui.layout"
+    xmlns:l="sap.ui.layout">
+    <Dialog id="EditDialog" afterClose="onAfterClose">
+        <grid:Grid defaultSpan="L12 M12 S12" width="auto">
+            <form:SimpleForm id="SimpleFormLoad" title="{i18n>items}" minWidth="1024" layout="{oDialogInfo.oLayout}" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2" maxContainerCols="2" editable="false">
+                <Label text="{i18n>bom_no}" />
+                <Input id="BomNo" name="BomNo" required="true" enabled="false" />
+
+                <Label text="{i18n>bom_item_no}" />
+                <Input id="Item" name="Item" required="true" enabled="false" />
+
+                <Label text="{i18n>material}" />
+                <Select id="Material" items="{/xTQAxMATERIALS_DD}" required="true" forceSelection="false">
+                    <items>
+                        <core:Item key="{matnr}" text="{maktx}" />
+                    </items>
+                </Select>
+
+                <Label text="{i18n>quantity}" />
+                <Input id="Quantity" name="Quantity" required="true"/>
+            </form:SimpleForm>
+        </grid:Grid>
+        <buttons>
+            <Button id="Add" text="{i18n>add}" type="Emphasized" press="onCreateBomItem" />
+            <Button id="Update" visible="false" text="{i18n>update}" type="Emphasized" press="onUpdateBomItem" />
+            <Button id="Cancel" text="{i18n>Close}" type="Default" press="onCloseFragment" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
+

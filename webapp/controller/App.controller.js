@@ -27,9 +27,6 @@ sap.ui.define([
                     oViewModel.setProperty("/busy", false);
                     oViewModel.setProperty("/delay", 0);
                 };
-
-                // this.getOwnerComponent().getModel().metadataLoaded().then(fnSetAppNotBusy.bind(this));
-                // this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
             }
         });
     });

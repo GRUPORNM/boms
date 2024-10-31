@@ -13,23 +13,40 @@
                     <form:content>
                         <Label text="{i18n>bom_no}"/>
                         <Text id="stlnr" text="{stlnr}" />
+
                         <Label text="{i18n>finalProduct}"/>
                         <Text id="maktx" text="{maktx}" />
+
                         <Label text="{i18n>basequantity}"/>
                         <Text id="bmeng" text="{bmeng}" />
+
                         <Label text="{i18n>baseUoM}"/>
                         <Text id="bmein" text="{bmein}" />
                     </form:content>
                 </form:SimpleForm>
                 <form:SimpleForm maxContainerCols="1" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" editable="false" title="{i18n>items}" columnsM="2" columnsL="3" columnsXL="4">
                     <form:content>
-                        <Table id="BomItemsTable" width="100%" class="sapFDynamicPageAlignContent" items="{to_bomItems}" busyIndicatorDelay="{appView>/delay}">
+                        <Table id="BomItemsTable" width="100%" class="sapFDynamicPageAlignContent" mode="SingleSelectLeft" items="{bomItemsView>/results}" busyIndicatorDelay="{appView>/delay}" selectionChange="onSelectionChange">
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDGenOverflowToolbar1">
+                                    <content>
+                                        <ToolbarSpacer/>
+                                        <Button id="btSaveChanges" visible="false" type="Emphasized" text="{i18n>save}" press="onSaveItemsChanges" />
+                                        <Button id="btAddItems" visible="{Detail>/editable}" text="{i18n>add}" press="onEditBomItem('C')" />
+                                        <Button id="btEditItems" visible="{Detail>/editable}" enabled="false" text="{i18n>edit}" press="onEditBomItem('U')" />
+                                        <Button id="btDeleteItems" visible="{Detail>/editable}" enabled="false" text="{i18n>delete}" press="handleDeleteBomItem" />
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
                             <columns>
                                 <Column>
                                     <Text text="{i18n>bom_no}" />
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>bom_item}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>component_no}" />
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>material}" />
@@ -41,14 +58,16 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier text="{stlnr}" />
-                                        <ObjectIdentifier text="{posnr}" />
-                                        <ObjectIdentifier text="{maktx}" />
-                                        <ObjectIdentifier text="{parts: [{path: 'menge'},{path: 'meins'}], type: 'sap.ui.model.type.Unit',formatOptions: { showMeasure: true  } }" />
+                                        <ObjectIdentifier text="{bomItemsView>stlnr}" />
+                                        <ObjectIdentifier text="{bomItemsView>posnr}" />
+                                        <ObjectIdentifier text="{bomItemsView>idnrk}" />
+                                        <ObjectIdentifier text="{bomItemsView>maktx}" />
+                                        <ObjectIdentifier text="{bomItemsView>menge}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
+
                     </form:content>
                 </form:SimpleForm>
             </Panel>
