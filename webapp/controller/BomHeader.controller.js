@@ -11,17 +11,12 @@ sap.ui.define([
                 var oViewModel = new JSONModel({
                     busy: true,
                     delay: 0,
-                    oStandard: "stlnr,stlal,maktx,stktx,bmeng",
+                    oStandard: "stlnr,stlal,maktx,stktx,bmeng,sttxt",
                     oSmartTableView: "",
                     variantInput: "Standard"
                 });
 
                 this.setModel(oViewModel, "Main");
-
-                var fnSetAppNotBusy = function () {
-                    oViewModel.setProperty("/busy", false);
-                    oViewModel.setProperty("/delay", 0);
-                };
                 sessionStorage.setItem("goToLaunchpad", "X");
 
                 this.getRouter().attachRouteMatched(this.getUserAuthentication, this);
@@ -51,6 +46,7 @@ sap.ui.define([
                 var oSource = oEvent.getSource(),
                     sPath = oSource.getBindingContext().getPath();
 
+                this.onChangeEnableState([{ id: "activeBom", state: false }]);
                 this.onNavigation(sPath, "bomItems", "/xTQAxBOM_HEADER_DD");
             },
 
@@ -67,6 +63,10 @@ sap.ui.define([
                     variantInput.addStyleClass("variantMode");
                     jQuery(".sapUiBlockLayer, .sapUiLocalBusyIndicator").css("background-color", "rgba(255, 255, 255, 0.99)");
                 }
+            },
+
+            onSelectionChange: function () {
+                this.onChangeEnableState([{ id: "activeBom", state: true }]);
             },
 
             onBeforeRendering: function () {
@@ -124,6 +124,23 @@ sap.ui.define([
                     var oView = this.getView(),
                         oModel = this.getModel("Main");
 
+                    var oOverflowToolbar = new sap.m.OverflowToolbar({
+                        design: "Transparent",
+                    });
+
+                    var oToolbarSpacer = new sap.m.ToolbarSpacer();
+
+                    var oActiveButton = new sap.m.Button({
+                        id: "activeBom",
+                        text: "{i18n>activeBom}",
+                        type: "Emphasized",
+                        enabled: false,
+                        press: this.handleActiveBom.bind(this)
+                    });
+
+                    oOverflowToolbar.addContent(oToolbarSpacer);
+                    oOverflowToolbar.addContent(oActiveButton);
+
                     var oSmartTable = new sap.ui.comp.smarttable.SmartTable({
                         id: "smartTableBoms",
                         entitySet: "xTQAxBOM_HEADER_DD",
@@ -131,11 +148,14 @@ sap.ui.define([
                         tableType: "ResponsiveTable",
                         header: "{i18n>BOMS}",
                         showRowCount: true,
+                        customToolbar: oOverflowToolbar,
                         enableAutoBinding: true,
                         initialise: function () {
                             this.onSTinitialise.bind(this);
-                            var oTable = oSmartTable.getTable();
+                            var bSorted = false,
+                                oTable = oSmartTable.getTable();
                             oTable.setMode("SingleSelectLeft");
+                            oTable.attachSelectionChange(this.onSelectionChange.bind(this));
 
                             oTable.attachUpdateFinished(function () {
                                 var oItems = oTable.getItems();
@@ -149,8 +169,11 @@ sap.ui.define([
                                         }
                                     });
                                 }
+                                if (!bSorted) {
+                                    this.applySorting(oTable);
+                                    bSorted = true;
+                                }
                             }.bind(this));
-
                         }.bind(this),
                         beforeRebindTable: this.onBeforeRebindTable.bind(this),
                         initiallyVisibleFields: oModel.getProperty("/oSmartTableView")
@@ -162,6 +185,15 @@ sap.ui.define([
                     var oToolbar = new sap.m.OverflowToolbar({
                     });
                     oSmartTable.setCustomToolbar(oToolbar);
+                }
+            },
+
+            applySorting: function (oTable) {
+                var oBinding = oTable.getBinding("items");
+                if (oBinding) {
+                    var oSorter = new sap.ui.model.Sorter("maktx", false, true);
+
+                    oBinding.sort(oSorter);
                 }
             },
 

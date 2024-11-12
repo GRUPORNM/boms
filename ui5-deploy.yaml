@@ -20,6 +20,6 @@ builder:
           name: /TQA/BOM_OVERVIEW
           description: ""
           package: /TQA/LVP
-          transport: DD2K901824
+          transport: DD2K902180
         exclude:
           - /test/
