@@ -164,6 +164,76 @@ sap.ui.define([
             });
         },
 
+        onChangeEnableState: function (oComponents) {
+            oComponents.forEach(({ id, state }) => {
+                sap.ui.getCore().byId(id).setProperty("enabled", state);
+            });
+        },
+
+        handleActiveBom: function () {
+            var that = this,
+                oTable = sap.ui.getCore().byId("smartTableBoms"),
+                sPath = oTable.getTable().getSelectedItem().getBindingContextPath(),
+                oMessage = {
+                    oText: "bomQuestionText",
+                    oTitle: "bomQuestionTitle"
+                };
+
+            if (sPath) {
+                new sap.m.MessageBox.warning(this.getResourceBundle().getText(oMessage.oText), {
+                    title: this.getResourceBundle().getText(oMessage.oTitle),
+                    actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                    emphasizedAction: sap.m.MessageBox.Action.OK,
+                    onClose: function (oAction) {
+                        if (oAction === sap.m.MessageBox.Action.OK) {
+                            that.onChangeEnableState([{ id: "activeBom", state: false }]);
+                            that.onActiveBom(sPath);
+                        } else {
+                            that.onChangeEnableState([{ id: "activeBom", state: false }]);
+                            oTable.removeSelections();
+                        }
+                    }
+                });
+            }
+        },
+
+        onActiveBom: function (sPath) {
+            var that = this,
+                oModel = this.getModel(),
+                oObject = oModel.getObject(sPath),
+                oMessage = {
+                    oText: "bomActiveText",
+                    oTitle: "bomActiveTitle"
+                };
+
+            var oEntry = {
+                stlal: oObject.stlal,
+                stlst: oObject.stlst
+            };
+
+            if (sPath && oEntry) {
+                oModel.update(sPath, oEntry, {
+                    success: function (oData) {
+                        debugger;
+                        that.getModel().refresh(true);
+                        that.showSuccessMessage(oMessage);
+                        that.onChangeEnableState([{ id: "activeBom", state: false }]);
+                    },
+                    error: function (oError) {
+                        that.onChangeEnableState([{ id: "activeBom", state: false }]);
+                        var sError = JSON.parse(oError.responseText).error.message.value;
+                        sap.m.MessageBox.alert(sError, {
+                            icon: "ERROR",
+                            onClose: null,
+                            styleClass: '',
+                            initialFocus: null,
+                            textDirection: sap.ui.core.TextDirection.Inherit
+                        });
+                    }
+                });
+            }
+        },
+
         getUserAuthentication: function (type) {
             var that = this,
                 urlParams = new URLSearchParams(window.location.search),
